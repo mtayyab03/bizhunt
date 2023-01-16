@@ -39,7 +39,7 @@ export default function FavouriteScreen(props) {
 
    <View style={{width:'90%',flexDirection:'row',alignItems:'center',justifyContent:'center',marginTop: RFPercentage(4)}}>
 
-     <TouchableOpacity activeOpacity={0.7} onPress={() => { props.navigation.navigate("HomeScreen") }} 
+     <TouchableOpacity activeOpacity={0.7} onPress={() => { props.navigation.navigate('BottomTab', { screen: 'HomeScreen' })}} 
          style={{ position:'absolute',left:RFPercentage(2) }}>
         <Image
             style={{

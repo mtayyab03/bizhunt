@@ -12,6 +12,7 @@ export default function ReelsRecordScreen(props) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
+  
 useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();

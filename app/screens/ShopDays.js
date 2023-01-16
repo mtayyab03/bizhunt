@@ -78,7 +78,13 @@ export default function ShopDays(props) {
 
       <View style={{width:'90%',alignItems:'center',justifyContent:'center',flexDirection:'row',marginTop:RFPercentage(5)}}>
           
-          <CircleLine title='1'/>
+      <View style={{width:RFPercentage(5),height:RFPercentage(5),borderRadius:RFPercentage(3),backgroundColor:Colors.primary,
+                    borderColor:Colors.secondary,alignItems:'center',justifyContent:'center'}}>
+              <Text style={{color:Colors.white}}>
+                 1
+               </Text>
+            </View>
+          <View style={{width:RFPercentage(5),height:RFPercentage(0.3),backgroundColor:Colors.secondary}}/>
         
            <View style={{width:RFPercentage(5),height:RFPercentage(5),borderRadius:RFPercentage(3),backgroundColor:Colors.primary,
                     borderColor:Colors.secondary,alignItems:'center',justifyContent:'center'}}>
@@ -87,7 +93,13 @@ export default function ShopDays(props) {
                </Text>
             </View>
           <View style={{width:RFPercentage(5),height:RFPercentage(0.3),backgroundColor:Colors.secondary}}/>
-        <CircleLine title='3'/>
+          <View style={{width:RFPercentage(5),height:RFPercentage(5),borderRadius:RFPercentage(3),backgroundColor:Colors.primary,
+                    borderColor:Colors.secondary,alignItems:'center',justifyContent:'center'}}>
+              <Text style={{color:Colors.white}}>
+                 3
+               </Text>
+            </View>
+          <View style={{width:RFPercentage(5),height:RFPercentage(0.3),backgroundColor:Colors.secondary}}/>
         <CircleLine title='4'/>
         <View style={{width:RFPercentage(5),height:RFPercentage(5),borderRadius:RFPercentage(3),
                borderColor:Colors.secondary,borderWidth:RFPercentage(0.3),alignItems:'center',justifyContent:'center'}}>

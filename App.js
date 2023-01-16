@@ -43,6 +43,7 @@ import ReelCaption from './app/screens/ReelCaption';
 import PublishReelsScreen from './app/screens/PublishReelsScreen';
 import MessageScreen from './app/screens/MessageScreen';
 import ShopProductsAddScreen from './app/screens/ShopProductsAddScreen';
+import ReelRecordPractice from './app/screens/ReelRecordPractice';
 
 //colors
 import Colors from './app/config/Colors';
@@ -114,7 +115,7 @@ const BottomTab=()=> {
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator  screenOptions={{headerMode:"false"}} initialRouteName="ShopProductsAddScreen">
+    <Stack.Navigator  screenOptions={{headerMode:"false"}} initialRouteName="FavouriteScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
@@ -140,6 +141,7 @@ export default function App() {
       <Stack.Screen name="PublishReelsScreen" component={PublishReelsScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
       <Stack.Screen name="ShopProductsAddScreen" component={ShopProductsAddScreen} />
+      <Stack.Screen name="ReelRecordPractice" component={ReelRecordPractice} />
 
       
     </Stack.Navigator>
