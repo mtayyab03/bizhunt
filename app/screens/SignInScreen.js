@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, View, Text, TextInput } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 //Components
 import Screen from '../components/Screen'
@@ -11,12 +13,14 @@ import AppButton from '../components/common/AppButton';
 import Colors from '../config/Colors'
 
 export default function SignInScreen(props) {
-    const [text, onChangeText] = useState('');
-    const [Password, onChangePassword] = useState('');
+
+    let validationSchema = yup.object().shape({
+        email: yup.string().required().email().label('Email'),
+        password: yup.string().required().min(4).label('Password'),
+        })
+      
     return (
         <Screen style={{ flex: 1, justifyContent: 'center',alignItems:'center',backgroundColor: Colors.lightWhite }}>
-
-            
 
             {/* Image Logo */}
             <View style={{ marginTop: RFPercentage(2), marginBottom:RFPercentage(4), 
@@ -96,6 +100,14 @@ export default function SignInScreen(props) {
                     </View>
 
                 {/* //email input */}
+                <Formik
+                      initialValues={{ email: '', password: '' }}
+                      onSubmit={() => { props.navigation.navigate('BottomTab', { screen: 'HomeScreen' })}}
+                      validationSchema={validationSchema}
+                      >
+                        {({handleChange,handleSubmit,errors,setFieldTouched,touched})=>(
+                            
+                        <>
                 <View>
                     <TextInput
                         style={{
@@ -107,17 +119,19 @@ export default function SignInScreen(props) {
                             paddingLeft: RFPercentage(3),
                             borderRadius: RFPercentage(1.5)
                         }}
-                        onChangeText={onChangeText}
-                        value={text}
+                        keyboardType='email-address'
+                        onChangeText={handleChange('email')}
+                        onBlur={()=>setFieldTouched('email')}
+                        // value={text}
                         placeholder='Email address'
                         placeholderTextColor={Colors.placeholder}
                     />
 
-                    {/* password */}
+                  {touched.email && <Text style={{color:'#FF0000',fontSize:RFPercentage(1.3),marginTop:RFPercentage(0.5)}}>{errors.email}</Text>}
                     <TextInput
                         style={{
                             height: RFPercentage(5),
-                            marginTop: RFPercentage(1.5),
+                            marginTop: RFPercentage(1.8),
                             width: RFPercentage(45),
                             height: RFPercentage(6.5),
                             backgroundColor: '#F2F3F7',
@@ -125,19 +139,27 @@ export default function SignInScreen(props) {
                             paddingLeft: RFPercentage(3),
                             borderRadius: RFPercentage(1.5)
                         }}
-                        onChangeText={onChangePassword}
-                        value={Password}
+                        
+                        onChangeText={handleChange('password')}
+                        onBlur={()=>setFieldTouched('password')}
+                        // value={Password}
                         placeholder='Password'
                         placeholderTextColor={Colors.placeholder}
                         secureTextEntry
                     />
+                  {touched.password && <Text style={{color:'#FF0000',fontSize:RFPercentage(1.3),marginTop:RFPercentage(0.5)}}>{errors.password}</Text>}
                 </View>
 
-                {/* button */}
-                <TouchableOpacity disabled={text==''| Password==''} style={{ marginTop: RFPercentage(2) }} activeOpacity={0.7} 
-                                        onPress={() => { props.navigation.navigate('BottomTab', { screen: 'HomeScreen' })}} >
+                
+                <TouchableOpacity  style={{ marginTop: RFPercentage(2) }} activeOpacity={0.7} 
+                                        onPress={handleSubmit} >
                     <AppButton title='LOG IN' />
                 </TouchableOpacity>
+
+                </>
+                )}
+
+                </Formik>
                 
                 {/* //forget text */}
                 <View style={{width:RFPercentage(45) ,alignItems:'center',justifyContent:'center'}}>

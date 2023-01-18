@@ -8,13 +8,12 @@ import CircleLine from '../components/common/CircleLine'
 import HeaderMode from '../components/common/HeaderMode'
 import InputField from '../components/common/InputField'
 import AppButton from '../components/common/AppButton'
+import SelectTime from '../components/common/SelectTime'
 
 //config
 import Colors from '../config/Colors'
 
 export default function ShopDays(props) {
-
-    const [ticbox, setTicbox] = useState(false);
 
     const daysList = [
         {
@@ -126,54 +125,7 @@ export default function ShopDays(props) {
                 showsVerticalScrollIndicator={false}
                 vertical
                 renderItem={({ item }) =>
-                <View style={{  backgroundColor: Colors.white,
-                           paddingHorizontal:RFPercentage(3),marginTop:RFPercentage(1),
-                           borderRadius: RFPercentage(1.5), height:RFPercentage(6), justifyContent:'center' }}>
-
-                       <View style={{ flexDirection: 'row', alignItems: 'center',  }}>
-                         <View style={{ flexDirection: 'row', alignItems: 'center',  }}>
-                         <TouchableOpacity activeOpacity={0.7} onPress={() => { setTicbox(true) }} 
-                                  style={{ width: RFPercentage(3), height: RFPercentage(3), borderRadius:RFPercentage(1),
-                                    borderWidth: RFPercentage(0.3), borderColor: Colors.secondary, 
-                                   alignItems: 'center', justifyContent: 'center' }}>
-
-                              {ticbox == true ?
-                                  <TouchableOpacity activeOpacity={0.7} onPress={() => { setTicbox(false) }}>
-                                      <Image
-                                          style={{
-                                              width: RFPercentage(1.7),
-                                              height: RFPercentage(1.7),
-                                          }}
-                                          source={require('../../assets/images/ticlogo.png')} />
-                                  </TouchableOpacity>
-                                  : null}
-                              
-                        </TouchableOpacity>
-
-                          <Text style={{ fontWeight: '500', fontSize: RFPercentage(2), marginLeft: RFPercentage(1.5), color: Colors.secondary }}>
-                              {item.day}
-                          </Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', position: 'absolute',right:0 }}>
-                        <View style={{width:RFPercentage(8),height:RFPercentage(4),
-                                      borderWidth:RFPercentage(0.3),borderColor:Colors.secondary,borderRadius:RFPercentage(2),
-                                      alignItems:'center',justifyContent:'center'}}>
-                            <Text style={{fontSize:RFPercentage(1.5),color:Colors.secondary}}>
-                                {item.timef}
-                            </Text>
-                        </View>
-                        <View style={{width:RFPercentage(8),height:RFPercentage(4),marginLeft:RFPercentage(1),
-                                      borderWidth:RFPercentage(0.3),borderColor:Colors.secondary,borderRadius:RFPercentage(2),
-                                      alignItems:'center',justifyContent:'center'}}>
-                            <Text style={{fontSize:RFPercentage(1.5),color:Colors.secondary}}>
-                                {item.timel}
-                            </Text>
-                        </View>
-
-                    </View>
-                        </View>
-
-              </View>
+                <SelectTime day={item.day} timef={item.timef} timel={item.timel}/>
              }/>
 
                  {/* button */} 

@@ -44,6 +44,8 @@ import PublishReelsScreen from './app/screens/PublishReelsScreen';
 import MessageScreen from './app/screens/MessageScreen';
 import ShopProductsAddScreen from './app/screens/ShopProductsAddScreen';
 import ReelRecordPractice from './app/screens/ReelRecordPractice';
+import Home from './app/screens/Home';
+import Initial from './app/screens/Initial';
 
 //colors
 import Colors from './app/config/Colors';
@@ -88,8 +90,8 @@ const BottomTab=()=> {
         }}
       />
       <Tab.Screen
-        name="ReelsScreen"
-        component={ReelsScreen}
+        name="Home"
+        component={Home}
         options={{
           tabBarLabel: 'Reels',
           tabBarIcon: ({ color, size }) => (
@@ -115,7 +117,7 @@ const BottomTab=()=> {
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator  screenOptions={{headerMode:"false"}} initialRouteName="FavouriteScreen">
+    <Stack.Navigator  screenOptions={{headerMode:"false"}} initialRouteName="ShopProductsAddScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
@@ -142,6 +144,7 @@ export default function App() {
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
       <Stack.Screen name="ShopProductsAddScreen" component={ShopProductsAddScreen} />
       <Stack.Screen name="ReelRecordPractice" component={ReelRecordPractice} />
+      <Stack.Screen name="Initial" component={Initial} />
 
       
     </Stack.Navigator>

@@ -9,7 +9,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '../../config/Colors'
 
 export default function ImageInput({imageUri,OnChangeImage}) {
+  
     const [Name, onChangeName] = useState('');
+    const [title, onChangeTitle] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
         requestPermission();
@@ -46,7 +48,7 @@ export default function ImageInput({imageUri,OnChangeImage}) {
       };
   return (
     <>
-        <TouchableOpacity activeOpacity={0.7} onPress={handlepress} 
+        <TouchableOpacity activeOpacity={0.7} onPress={() => setModalVisible(true)}  
                style={{width:RFPercentage(15),height:RFPercentage(15),borderRadius:RFPercentage(1),
                  backgroundColor:Colors.grey,alignItems:'center',justifyContent:'center',marginLeft:RFPercentage(3)}}>
              {!imageUri &&   <MaterialCommunityIcons name="camera" color={Colors.white} size={40} />}
@@ -70,7 +72,7 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                       justifyContent: 'center',
                       alignItems: "center",
                       marginTop: 29}}>
-          <View style={{ width:'90%',height:RFPercentage(37),
+          <View style={{ width:'90%',height:RFPercentage(67),
                          backgroundColor: "white",
                          borderRadius: 20,
                          padding: 35,
@@ -94,11 +96,60 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                          }}
                          source={require('../../../assets/images/cancelicon.png')} /> 
             </Pressable>
+             
+             {/* image picker */}
+             <View style={{width:RFPercentage(17),height:RFPercentage(17),borderWidth:RFPercentage(0.3),
+                     borderColor:Colors.lightgrey,borderRadius:RFPercentage(2),marginTop:RFPercentage(4),alignItems:'center',justifyContent:'center'}}>
 
+              <TouchableOpacity activeOpacity={0.7} onPress={handlepress} style={{marginTop:RFPercentage(3)}}>
+                
+              <Image
+              style={{
+                     width: RFPercentage(14),
+                     height: RFPercentage(14),
+                     borderRadius:RFPercentage(2)
+                     }}
+                 source={require('../../../assets/images/shop1.png')} /> 
+                
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.7} style={{bottom:RFPercentage(2)}}>
+                   <Image
+                     style={{
+                     width: RFPercentage(3.5),
+                     height: RFPercentage(3),
+                     }}
+                     source={require('../../../assets/images/cameraicon.png')} />
+                     
+                </TouchableOpacity>
+
+          </View>
+
+          {/* modal title & price */}
             
             <View style={{width:'90%',marginTop:RFPercentage(1)}}>
-                     <Text style={{fontSize:RFPercentage(2),fontWeight:'700',color:Colors.secondary, marginBottom: RFPercentage(1.5)}}> 
-                           create category
+            <Text style={{fontSize:RFPercentage(2),fontWeight:'700',color:Colors.secondary, marginBottom: RFPercentage(1.5)}}> 
+                           Title
+                         </Text>
+                     
+                         <View style={{
+                             width: RFPercentage(35),
+                             height: RFPercentage(7),
+                             backgroundColor: '#F2F3F7',
+                             color: Colors.black,
+                             paddingLeft: RFPercentage(3),
+                             borderRadius: RFPercentage(1.5),
+                             justifyContent: 'center'
+                         }}>
+                        <TextInput
+                           style={{width:RFPercentage(45)}}
+                           onChangeText={onChangeTitle}
+                           value={title}
+                           placeholder={'Enter title'}
+                           placeholderTextColor={Colors.placeholder}
+                       />
+                     </View>
+                     <Text style={{fontSize:RFPercentage(2),fontWeight:'700',color:Colors.secondary, marginBottom: RFPercentage(1.5),marginTop:RFPercentage(1.5)}}> 
+                           price
                          </Text>
                      
                          <View style={{
@@ -114,7 +165,7 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                            style={{width:RFPercentage(45)}}
                            onChangeText={onChangeName}
                            value={Name}
-                           placeholder={'Enter category'}
+                           placeholder={'Enter price'}
                            placeholderTextColor={Colors.placeholder}
                        />
                      </View>
@@ -127,7 +178,7 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                      , borderRadius: RFPercentage(1), alignItems: 'center', justifyContent: 'center', marginTop: RFPercentage(2)
                      ,backgroundColor:'#FF9900' }}>
                      <Text style={{ color: Colors.white, fontSize: RFPercentage(2.2), fontWeight:'700' }}>
-                         create
+                         submit
                      </Text>
                  </View>
             </TouchableOpacity>

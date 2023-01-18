@@ -44,7 +44,7 @@ export default function PostReelScreen(props) {
     </View>
 
      {/* button */} 
-     <TouchableOpacity activeOpacity={0.7} onPress={() => { props.navigation.navigate('ReelsRecordScreen')}} 
+     <TouchableOpacity activeOpacity={0.7} onPress={() => { props.navigation.navigate('ReelRecordPractice')}} 
                                    style={{marginTop:RFPercentage(6),marginBottom:RFPercentage(4)}}>
                           <AppButton title='Post a Reel'/>
      </TouchableOpacity>
