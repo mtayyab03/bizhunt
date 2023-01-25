@@ -44,8 +44,7 @@ import PublishReelsScreen from './app/screens/PublishReelsScreen';
 import MessageScreen from './app/screens/MessageScreen';
 import ShopProductsAddScreen from './app/screens/ShopProductsAddScreen';
 import ReelRecordPractice from './app/screens/ReelRecordPractice';
-import Home from './app/screens/Home';
-import Initial from './app/screens/Initial';
+import Reels from './app/screens/Reels';
 
 //colors
 import Colors from './app/config/Colors';
@@ -90,8 +89,8 @@ const BottomTab=()=> {
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Reels"
+        component={Reels}
         options={{
           tabBarLabel: 'Reels',
           tabBarIcon: ({ color, size }) => (
@@ -144,7 +143,6 @@ export default function App() {
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
       <Stack.Screen name="ShopProductsAddScreen" component={ShopProductsAddScreen} />
       <Stack.Screen name="ReelRecordPractice" component={ReelRecordPractice} />
-      <Stack.Screen name="Initial" component={Initial} />
 
       
     </Stack.Navigator>
