@@ -8,8 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //config
 import Colors from '../../config/Colors'
 
-export default function ImageInput({imageUri,OnChangeImage}) {
-  
+export default function ImageInput({imageUri,OnChangeImage,price2,title2}) {
     const [Name, onChangeName] = useState('');
     const [title, onChangeTitle] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
@@ -142,7 +141,9 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                          }}>
                         <TextInput
                            style={{width:RFPercentage(45)}}
-                           onChangeText={onChangeTitle}
+                           onChangeText={(e)=>{onChangeTitle(e)
+                            title2(e)
+                            }}
                            value={title}
                            placeholder={'Enter title'}
                            placeholderTextColor={Colors.placeholder}
@@ -163,7 +164,9 @@ export default function ImageInput({imageUri,OnChangeImage}) {
                          }}>
                         <TextInput
                            style={{width:RFPercentage(45)}}
-                           onChangeText={onChangeName}
+                           onChangeText={(e)=>{onChangeName(e)
+                          price2(e)
+                          }}
                            value={Name}
                            placeholder={'Enter price'}
                            placeholderTextColor={Colors.placeholder}
