@@ -4,13 +4,14 @@ import { Camera } from 'expo-camera';
 import { Video } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 import { RFPercentage } from 'react-native-responsive-fontsize'
+import * as ImagePicker from 'expo-image-picker';
 
 //config
 import Colors from '../config/Colors'
 
 
 
-export default function App() {
+export default function ReelRecordPractice(props) {
   const [hasAudioPermission, setHasAudioPermission] = useState(null);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [camera, setCamera] = useState(null);
@@ -18,7 +19,23 @@ export default function App() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
-  
+  const [image, setImage] = useState(null);
+
+  const pickVideo = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -59,8 +76,26 @@ export default function App() {
             style={styles.fixedRatio} 
             type={type}
             ratio={'4:3'} >
+
+              <View style={{width:'90%',marginLeft:RFPercentage(3),flexDirection:'row',marginTop:RFPercentage(5),alignItems:'center'}}>
+                  <TouchableOpacity onPress={() => { props.navigation.navigate("PostReelScreen") }} activeOpacity={0.7}>
+                     <Image
+                       style={{
+                         width: RFPercentage(4),
+                         height: RFPercentage(4),
+                         borderRadius:RFPercentage(1)
+                         }}
+                     source={require('../../assets/images/cancelicon.png')} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => { props.navigation.navigate("ReelCaption") }} activeOpacity={0.7}
+                                   style={{position:'absolute',right:RFPercentage(3)}}>
+                      <Text style={{fontSize:RFPercentage(3),fontWeight:'600',color:Colors.lightWhite}}>
+                          Next 
+                      </Text>
+                  </TouchableOpacity>
+              </View>
    
-        <Video
+        {/* <Video
           ref={video}
           style={styles.video}
           source={{
@@ -70,7 +105,7 @@ export default function App() {
           resizeMode="contain"
           isLooping
           onPlaybackStatusUpdate={status => setStatus(() => status)}
-        />
+        /> */}
 
 <View
       style={{
@@ -82,10 +117,10 @@ export default function App() {
     >
       <View
         style={{
-          width:'55%',
+          width:'100%',
           flexDirection: "row",
           justifyContent:'space-around',
-          alignItems:'center'
+          alignItems:'center',
         }}
       >
         
@@ -111,16 +146,16 @@ export default function App() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{ alignSelf: "center" }} onPress={() => takeVideo()} 
-          
+          style={{ alignSelf: "center" }} onLongPress={() => takeVideo()} 
+          onPressOut={() => stopVideo()}
           >
             <View
             style={{
               borderWidth: 2,
-              borderRadius: 25,
+              borderRadius: 30,
               borderColor: "red",
-              height: 50,
-              width: 50,
+              height: 60,
+              width: 60,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -131,14 +166,14 @@ export default function App() {
                 borderWidth: 2,
                 borderRadius: 25,
                 borderColor: "red",
-                height: 40,
-                width: 40,
+                height: 50,
+                width: 50,
                 backgroundColor: "red",
               }}
             ></View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ alignSelf: "center" }} onPress={() => stopVideo()} >
             
           <View
@@ -164,15 +199,31 @@ export default function App() {
             }}
           ></View>
         </View>
-      </TouchableOpacity>
-          <View style={styles.buttons}>
+      </TouchableOpacity> */}
+
+       <TouchableOpacity activeOpacity={0.7} onPress={pickVideo}>
+                {image? null :
+              <Image
+              style={{
+                     width: RFPercentage(6),
+                     height: RFPercentage(6),
+                     borderRadius:RFPercentage(1)
+                     }}
+                 source={require('../../assets/images/videogallery.png')} /> }
+                {image && <Image source={{ uri: image }} style={{ width: RFPercentage(14),
+                     height: RFPercentage(6),
+                     borderRadius:RFPercentage(6) }} />}
+                
+              </TouchableOpacity>
+      {/* play record button */}
+          {/* <View style={styles.buttons}>
           <Button
             title={status.isPlaying ? 'Pause' : 'Play'}
             onPress={() =>
               status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
             }
           />
-        </View>
+        </View> */}
           </View>
           </View>
           </Camera>
@@ -183,7 +234,7 @@ export default function App() {
 const styles = StyleSheet.create({
   fixedRatio:{
       flex: 1,
-      aspectRatio: 1
+      // aspectRatio: 1
   },
   video: {
     width: 350,

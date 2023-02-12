@@ -12,12 +12,13 @@ const Reels = () => {
         height: windowHeight,
         backgroundColor: 'white',
         position: 'relative',
+        bottom:50,
         backgroundColor: 'black',
+        
       }}>
       <View
         style={{
           position: 'absolute',
-          top: 0,
           left: 0,
           right: 0,
           flexDirection: 'row',

@@ -60,7 +60,8 @@ export default function PostReelScreen(props) {
                    numColumns={3}
                    renderItem={({ item }) =>
 
-                     <View style={{width:RFPercentage(15),height:RFPercentage(15),alignItems:'center',justifyContent:'center',marginLeft:RFPercentage(2),marginTop:RFPercentage(2)}}>
+                     <View style={{width:RFPercentage(15),height:RFPercentage(15),alignItems:'center',
+                       justifyContent:'center',marginLeft:RFPercentage(2),marginTop:RFPercentage(2)}}>
 
                      <ImageBackground
                         style={{
