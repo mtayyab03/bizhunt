@@ -12,6 +12,8 @@ import Loading from './Loading';
 //config
 import Colors from '../config/Colors'
 import { AuthProvider,useAuth,AuthContext } from '../../contextapi/Auth';
+import Parse from 'parse/react-native.js';
+
 export default function SignInScreen(props) {
     const { user, login, logout, isLoading } = useAuth();
     const[load,setload]=useState(false)
@@ -19,35 +21,29 @@ export default function SignInScreen(props) {
         email: yup.string().required().label('Username'),
         password: yup.string().required().min(4).label('Password'),
         })
-        async function postData(url = '', data = {}) {
-            // Default options are marked with *
-            const response = await fetch(url, {
-              method: 'GET', // *GET, POST, PUT, DELETE, etc.
-              mode: 'cors', // no-cors, *cors, same-origin
-              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-              credentials: 'same-origin', // include, *same-origin, omit
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Parse-Application-Id':'QoUxFBYv7fEcUn8BsrLddggywVQ6UPb4H91HXoex',
-                'X-Parse-REST-API-Key':'6QRsnnBAQF6FicxlT8uxY8He0kSmK0vsCBLtxpNS'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              redirect: 'follow', // manual, *follow, error
-              referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            });
-            return response.json(); // parses JSON response into native JavaScript objects
-          }
-        const loginprocess=(values)=>{
+        const loginprocess=async(values)=>{
             setload(true)
             const{email,password}=values
-            postData(`https://parseapi.back4app.com/login?username=${email}&password=${password}`)
-            .then((data) => {
-              login(data)
+            
+            try {
+                // Pass the username and password to logIn function
+                let user = await Parse.User.logIn(email,password);
+                // login(user)
+                if(user?.error||user===undefined||user===null)
+                {
+                    alert("Invalid Credentials")
+                    setload(false)
+                }
+                else
+                {
+              login(user)
               setload(false)
-            }).catch((e)=>{
+                }
                 setload(false)
-              console.log("error")
-            })
+              } catch (error) { 
+                    setload(false)
+                console.error('Error while logging in user', error);
+              }
         }
 if(isLoading||load)
 {
@@ -69,17 +65,17 @@ if(isLoading||load)
             <View style={{ justifyContent: 'center' }}>
 
                 {/* title */}
-                <Text style={{fontSize:RFPercentage(2.5),fontWeight:'700',color:Colors.secondary}}> Login </Text>
+                {/* <Text style={{fontSize:RFPercentage(2.5),fontWeight:'700',color:Colors.secondary}}> Login </Text> */}
 
                 {/* facebook */}
-                <TouchableOpacity activeOpacity={0.7} style={{
+                {/* <TouchableOpacity activeOpacity={0.7} style={{
                     width: RFPercentage(45), height: RFPercentage(6)
                     , borderRadius: RFPercentage(1), alignItems: 'center', justifyContent: 'center',
                      marginTop: RFPercentage(3),borderColor: '#0D104080', borderWidth: RFPercentage(0.07),
-                }}>
+                }}> */}
 
                     {/* icon */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
 
                         <Image
                             style={{
@@ -94,10 +90,10 @@ if(isLoading||load)
                         </Text>
                     </View>
 
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 {/* //google */}
-                <TouchableOpacity activeOpacity={0.7} style={{
+                {/* <TouchableOpacity activeOpacity={0.7} style={{
                     width: RFPercentage(45), height: RFPercentage(6)
                     , borderRadius: RFPercentage(1), justifyContent: 'center', alignItems: 'center', 
                     marginTop: RFPercentage(1.5), backgroundColor: Colors.lightWhite, borderColor: '#0D104080', borderWidth: RFPercentage(0.07),
@@ -119,19 +115,19 @@ if(isLoading||load)
                         </Text>
 
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
          
 
                 {/* //logintext */}
-                <View style={{width:RFPercentage(45) ,alignItems:'center',justifyContent:'center'}}>
+                {/* <View style={{width:RFPercentage(45) ,alignItems:'center',justifyContent:'center'}}>
 
                 <Text style={{
                     marginTop: RFPercentage(2), marginBottom:RFPercentage(2), color: '#0D104080', fontSize: RFPercentage(1.5)
                 }}>
                     ------------------- Or ---------------------
                 </Text>
-                    </View>
+                    </View> */}
 
                 {/* //email input */}
                 <Formik

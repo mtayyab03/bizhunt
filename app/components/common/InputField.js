@@ -5,7 +5,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize'
 //config
 import Colors from '../../config/Colors'
 
-export default function InputField({title,placeholder,onChangeText}) {
+export default function InputField({title,placeholder,onChangeText,Val}) {
 
   const [Name, onChangeName] = useState('');
 
